@@ -1,1 +1,0 @@
-# Cassandra Helm Kubernetes Demo
