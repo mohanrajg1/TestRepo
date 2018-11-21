@@ -1,2 +1,1 @@
-# TestRepo
-Readme file.
+# Cassandra Helm Kubernetes Demo
