@@ -102,7 +102,7 @@ NAME                             STATUS    VOLUME             CAPACITY   ACCESS 
 data-muddled-molly-cassandra-0   Bound     vxvol-97082578cb   16Gi       RWO            vxflex         11m
 data-muddled-molly-cassandra-1   Bound     vxvol-ea81dab6cb   16Gi       RWO            vxflex         9m
 data-muddled-molly-cassandra-2   Bound     vxvol-3160ea70cb   16Gi       RWO            vxflex         7m
-
+```
 
 **6. Initialize the PG Bench database using the script**
 
@@ -213,4 +213,4 @@ cqlsh>
 
 ```
 
-**13. High-five your neighbor ðŸ™Œ. Stateful containers with persistent storage, FTW.**
+**13. Stateful containers with persistent storage, FTW.**
