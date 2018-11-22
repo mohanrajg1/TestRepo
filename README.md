@@ -74,7 +74,6 @@ You can also see the cluster status by run the following:
 To tail the logs for the Cassandra pod run the following:
 - kubectl logs -f --namespace default $(kubectl get pods --namespace default -l app=cassandra,release=muddled-molly -o jsonpath='{ .items[0].metadata.name }')
 
-<snip />
 ```
 
 **4. Ensure that the pod is running**
@@ -92,10 +91,9 @@ service/muddled-molly-cassandra   ClusterIP   None         <none>        7000/TC
 
 NAME                                       DESIRED   CURRENT   AGE
 statefulset.apps/muddled-molly-cassandra   3         3         16m
-
 ```
-**5. Verify the persistent volumes are created**
 
+**5. Verify the persistent volumes are created**
 ```bash
 $ kubectl get pvc
 NAME                             STATUS    VOLUME             CAPACITY   ACCESS MODES   STORAGECLASS   AGE
@@ -105,7 +103,6 @@ data-muddled-molly-cassandra-2   Bound     vxvol-3160ea70cb   16Gi       RWO    
 ```
 
 **6. Initialize the PG Bench database using the script**
-
 ```bash
 $ ./csstress_script.sh muddled-molly init
 /usr/bin/kubectl run --namespace default muddled-molly-cassandra-stress-init --restart=Never --rm --tty -i --image cassandra --command -- cassandra-stress write duration=60s -rate threads=100 -node muddled-molly-cassandra
@@ -120,8 +117,8 @@ total,       1188893,   18730,   18730,   18730,     5.3,     3.4,    10.4,    6
 total,       1205945,   17052,   17052,   17052,     5.8,     3.4,    27.5,    49.2,    64.3,    67.5,   60.0,  0.03847,      0,      0,       0,       0,       0,       0
 
 ```
-**7. Benchmark the storage using `pgbench`:**
 
+**7. Benchmark the storage using `pgbench`:**
 ```bash
 ./csstress_script.sh muddled-molly bench
 /usr/bin/kubectl run --namespace default muddled-molly-cassandra-stress-bench --restart=Never --rm --tty -i --image cassandra --command -- cassandra-stress read duration=60s -rate threads=100 -node muddled-molly-cassandra
@@ -148,7 +145,6 @@ Population:
 ```
 
 **8. You can open a shell to the database, if you'd like to poke around.**
-
 ```bash
 $ ./csstress_script.sh muddled-molly shell
 /usr/bin/kubectl run --namespace default muddled-molly-cassandra-stress-shell --restart=Never --rm --tty -i --image cassandra --command -- cqlsh muddled-molly-cassandra
@@ -163,7 +159,6 @@ cqlsh> select * from system_schema.keyspaces;
 ```
 
 **9. In another shell, watch the state of the containers, so that we can see what happens when we kill it.**
-
 ```bash
 $ kubectl get pods -o wide | grep 'muddled-molly'
 muddled-molly-cassandra-0                1/1       Running   0          38m       10.244.3.22     k8s-slave3   <none>
@@ -172,7 +167,6 @@ muddled-molly-cassandra-2                1/1       Running   0          33m     
 ```
 
 **10. Now, execute a couple of commands to kill the container, and ensure that it moves to another host.**
-
 ```bash
 $ ./csstress_script.sh muddled-molly kill-and-move
 /usr/bin/kubectl taint node k8s-slave3 key=value:NoSchedule && /usr/bin/kubectl delete pod muddled-molly-cassandra-0
@@ -181,7 +175,6 @@ pod "muddled-molly-cassandra-0" deleted
 ```
 
 **11. In our other shell, we'll see that container be terminated, and recreated on another host.**
-
 ```bash
 $ kubectl get pods -o wide | grep 'muddled-molly'
 muddled-molly-cassandra-0                1/1       Running   0          1h        10.244.3.22     k8s-slave3   <none>
@@ -192,7 +185,6 @@ muddled-molly-cassandra-0                0/1       ContainerCreating   0        
 ```
 
 **12. Feel free to validate that your data is still available.**
-
 ```bash
 $ ./csstress_script.sh muddled-molly shell
 /usr/bin/kubectl run --namespace default muddled-molly-cassandra-stress-shell --restart=Never --rm --tty -i --image cassandra --command -- cqlsh muddled-molly-cassandra
