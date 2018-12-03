@@ -118,7 +118,7 @@ total,       1205945,   17052,   17052,   17052,     5.8,     3.4,    27.5,    4
 
 ```
 
-**7. Benchmark the storage using `pgbench`:**
+**7. Benchmark the storage using `cassandra-stress`:**
 ```bash
 ./csstress_script.sh muddled-molly bench
 /usr/bin/kubectl run --namespace default muddled-molly-cassandra-stress-bench --restart=Never --rm --tty -i --image cassandra --command -- cassandra-stress read duration=60s -rate threads=100 -node muddled-molly-cassandra
