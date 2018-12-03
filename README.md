@@ -102,7 +102,7 @@ data-muddled-molly-cassandra-1   Bound     vxvol-ea81dab6cb   16Gi       RWO    
 data-muddled-molly-cassandra-2   Bound     vxvol-3160ea70cb   16Gi       RWO            vxflex         7m
 ```
 
-**6. Initialize the PG Bench database using the script**
+**6. Initialize the Cassandra database using the script**
 ```bash
 $ ./csstress_script.sh muddled-molly init
 /usr/bin/kubectl run --namespace default muddled-molly-cassandra-stress-init --restart=Never --rm --tty -i --image cassandra --command -- cassandra-stress write duration=60s -rate threads=100 -node muddled-molly-cassandra
