@@ -256,7 +256,7 @@ Events:
   Warning  ProvisioningFailed    7m (x12 over 19m)   csi-scaleio vxflexos-csi-controller-0 46a429d9-9f59-11e8-a2e4-62df12916020  Failed to provision volume with StorageClass "vxflexos": rpc error: code = Internal desc = error when creating volume: Error getting storage pool Error Authenticating: A timeout occurred waiting for a volume to be created, either by external provisioner "csi-scaleio" or manually created by system administrator
   Normal   Provisioning          2m (x15 over 19m)   csi-scaleio vxflexos-csi-controller-0 46a429d9-9f59-11e8-a2e4-62df12916020  External provisioner is provisioning volume for claim "default/data-muddled-molly-cassandra-0"
 ```
-> _Delete the helm release and deploy again with helm_.
+> _Delete the cassandra release and deploy again with helm after the MDM certificate approved in Gateway server_.
 ```bash
 $ helm delete muddled-molly
 $ helm install incubator/cassandra
